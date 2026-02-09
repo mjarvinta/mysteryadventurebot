@@ -5,6 +5,7 @@ class MysteryAdventureBot:
     def __init__(self, nama_pemain):
         self.nama_pemain = nama_pemain
         self.poin = 0
+        self.nyawa = 100
         self.teka_teki_selesai = []
         self.petunjuk = []
         self.penculik_asli = "Igor Molodov"
@@ -28,8 +29,28 @@ class MysteryAdventureBot:
         print("Polisi lokal minta bantuanmu untuk menyelidiki kasus ini.")
         time.sleep(1)
         print("\nMisimu: Pecahkan teka-teki, temukan petunjuk, dan ungkap sang penculik!")
-        print("\n" + "="*60)
+        print("\n" + "="*60)        
+        print(f"\n⚕️  NYAWA AWAL: {self.nyawa}")
+        print("⚠️  Setiap jawaban salah mengurangi 30 nyawa!")
+        print("="*60)
         
+    def tampilkan_status(self):
+        """Menampilkan status nyawa dan poin saat ini"""
+        status = f"💚 Nyawa: {self.nyawa} | ⭐ Poin: {self.poin}"
+        print(f"\n{status}")
+        return self.nyawa > 0
+    
+    def game_over(self):
+        """Menampilkan pesan game over"""
+        print("\n" + "="*60)
+        print("GAME OVER - NYAWA HABIS!")
+        print("="*60)
+        print(f"\nInvestigator {self.nama_pemain} tidak mampu menyelesaikan kasus ini.")
+        print(f"Poin akhir: {self.poin}")
+        print(f"Petunjuk yang dikumpulkan: {len(self.petunjuk)}/{len(self.teka_teki_selesai)}")
+        print("\nWalikota tidak dapat diselamatkan... 😢")
+        print("="*60 + "\n")
+        return False        
     def tebak_lokasi(self):
         """Mini-game tebak lokasi walikota terakhir dilihat"""
         print("\n[TEKA-TEKI 1: TEBAK LOKASI PERTAMA]")
@@ -56,10 +77,14 @@ class MysteryAdventureBot:
                 self.poin += 10
                 self.petunjuk.append("Tas hitam kosong di Bank")
                 self.teka_teki_selesai.append("Lokasi")
+                self.tampilkan_status()
                 return True
             else:
                 print(f"\n✗ SALAH! Orang itu berbohong.")
                 print(f"Jawaban yang benar adalah: {lokasi_opsi['3']['nama']}")
+                self.nyawa -= 30
+                print(f"❌ Nyawa berkurang 30 poin! Nyawa sisa: {self.nyawa}")
+                self.tampilkan_status()
                 return False
         else:
             print("\nPilihan tidak valid!")
@@ -90,10 +115,14 @@ class MysteryAdventureBot:
                 self.poin += 15
                 self.petunjuk.append("Igor Molodov adalah penculik")
                 self.teka_teki_selesai.append("Penjahat")
+                self.tampilkan_status()
                 return True
             else:
                 print(f"\n✗ SALAH! {penjahat_opsi[guess]['nama']} tidak bersalah.")
                 print(f"Jawaban yang benar adalah: {penjahat_opsi['1']['nama']}")
+                self.nyawa -= 30
+                print(f"❌ Nyawa berkurang 30 poin! Nyawa sisa: {self.nyawa}")
+                self.tampilkan_status()
                 return False
         else:
             print("\nPilihan tidak valid!")
@@ -123,10 +152,14 @@ class MysteryAdventureBot:
             self.poin += 12
             self.petunjuk.append("Motif: Proyek infrastruktur senilai 50 triliun")
             self.teka_teki_selesai.append("Motif")
+            self.tampilkan_status()
             return True
         else:
             print("\n✗ SALAH! Motivnya lebih rumit dari itu.")
             print("Jawaban yang benar: Ingin mengambil alih proyek infrastruktur senilai 50 triliun")
+            self.nyawa -= 30
+            print(f"❌ Nyawa berkurang 30 poin! Nyawa sisa: {self.nyawa}")
+            self.tampilkan_status()
             return False
     
     def tebak_barang_bukti(self):
@@ -155,10 +188,14 @@ class MysteryAdventureBot:
             self.poin += 10
             self.petunjuk.append("Cincin HW ditemukan di rumah Igor")
             self.teka_teki_selesai.append("Bukti")
+            self.tampilkan_status()
             return True
         else:
             print("\n✗ SALAH! Barang itu bukan bukti yang relevan.")
             print("Jawaban yang benar: Cincin emas walikota dengan inisial HW")
+            self.nyawa -= 30
+            print(f"❌ Nyawa berkurang 30 poin! Nyawa sisa: {self.nyawa}")
+            self.tampilkan_status()
             return False
     
     def tebak_lokasi_penculikan(self):
@@ -188,10 +225,14 @@ class MysteryAdventureBot:
             print("Polisi segera melakukan penggerebekan dan menyelamatkan walikota!")
             self.poin += 15
             self.teka_teki_selesai.append("Lokasi Penahanan")
+            self.tampilkan_status()
             return True
         else:
             print("\n✗ SALAH! Lokasi penahanan berbeda.")
             print("Jawaban yang benar: Gudang tua di tepi kota")
+            self.nyawa -= 30
+            print(f"❌ Nyawa berkurang 30 poin! Nyawa sisa: {self.nyawa}")
+            self.tampilkan_status()
             return False
     
     def bonus_teka_teki_cepat(self):
@@ -222,9 +263,13 @@ class MysteryAdventureBot:
         if guess == soal_random['jawaban']:
             print("\n✓ BENAR! +5 poin bonus!")
             self.poin += 5
+            self.tampilkan_status()
             return True
         else:
             print("\n✗ SALAH! Tidak ada poin bonus.")
+            self.nyawa -= 30
+            print(f"❌ Nyawa berkurang 30 poin! Nyawa sisa: {self.nyawa}")
+            self.tampilkan_status()
             return False
     
     def tampilkan_kesimpulan(self):
@@ -235,6 +280,7 @@ class MysteryAdventureBot:
         print(f"\n📋 RINGKASAN KASUS:")
         print(f"   Penyelidik: {self.nama_pemain}")
         print(f"   Total Poin: {self.poin}")
+        print(f"   Nyawa Sisa: {self.nyawa}")
         print(f"   Teka-teki Terpecahkan: {len(self.teka_teki_selesai)}/5")
         
         print(f"\n📊 HASIL INVESTIGASI:")
@@ -279,22 +325,34 @@ class MysteryAdventureBot:
         # Jalankan semua teka-teki
         print("\n" + "-"*60)
         self.tebak_lokasi()
+        if self.nyawa <= 0:
+            return self.game_over()
         
         print("\n" + "-"*60)
         self.tebak_penjahat()
+        if self.nyawa <= 0:
+            return self.game_over()
         
         print("\n" + "-"*60)
         self.tebak_motif()
+        if self.nyawa <= 0:
+            return self.game_over()
         
         print("\n" + "-"*60)
         self.tebak_barang_bukti()
+        if self.nyawa <= 0:
+            return self.game_over()
         
         print("\n" + "-"*60)
         self.tebak_lokasi_penculikan()
+        if self.nyawa <= 0:
+            return self.game_over()
         
         print("\n" + "-"*60)
         input("\nTekan Enter untuk melanjutkan ke bonus... ")
         self.bonus_teka_teki_cepat()
+        if self.nyawa <= 0:
+            return self.game_over()
         
         # Tampilkan kesimpulan akhir
         self.tampilkan_kesimpulan()
