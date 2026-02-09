@@ -82,6 +82,7 @@ class MysteryAdventureBot:
             else:
                 print(f"\n✗ SALAH! Orang itu berbohong.")
                 print(f"Jawaban yang benar adalah: {lokasi_opsi['3']['nama']}")
+                print("\n⚠️  PERINGATAN: Kesalahan investigasi! Walikota semakin jauh dari jangkauan.")
                 self.nyawa -= 30
                 print(f"❌ Nyawa berkurang 30 poin! Nyawa sisa: {self.nyawa}")
                 self.tampilkan_status()
@@ -120,6 +121,7 @@ class MysteryAdventureBot:
             else:
                 print(f"\n✗ SALAH! {penjahat_opsi[guess]['nama']} tidak bersalah.")
                 print(f"Jawaban yang benar adalah: {penjahat_opsi['1']['nama']}")
+                print("\n⚠️  PERINGATAN: Anda menuduh orang yang salah! Ini merusak reputasi investigasi.")
                 self.nyawa -= 30
                 print(f"❌ Nyawa berkurang 30 poin! Nyawa sisa: {self.nyawa}")
                 self.tampilkan_status()
@@ -157,6 +159,7 @@ class MysteryAdventureBot:
         else:
             print("\n✗ SALAH! Motivnya lebih rumit dari itu.")
             print("Jawaban yang benar: Ingin mengambil alih proyek infrastruktur senilai 50 triliun")
+            print("\n⚠️  PERINGATAN: Memahami motif penjahat sangat penting! Pertahankan fokus Anda!")
             self.nyawa -= 30
             print(f"❌ Nyawa berkurang 30 poin! Nyawa sisa: {self.nyawa}")
             self.tampilkan_status()
@@ -193,6 +196,7 @@ class MysteryAdventureBot:
         else:
             print("\n✗ SALAH! Barang itu bukan bukti yang relevan.")
             print("Jawaban yang benar: Cincin emas walikota dengan inisial HW")
+            print("\n⚠️  PERINGATAN: Bukti fisik sangat krusial! Jangan asal-asalan dalam memilih!")
             self.nyawa -= 30
             print(f"❌ Nyawa berkurang 30 poin! Nyawa sisa: {self.nyawa}")
             self.tampilkan_status()
@@ -230,6 +234,7 @@ class MysteryAdventureBot:
         else:
             print("\n✗ SALAH! Lokasi penahanan berbeda.")
             print("Jawaban yang benar: Gudang tua di tepi kota")
+            print("\n⚠️  PERINGATAN: Tim penyelamat dikirim ke lokasi yang salah! Walikota dalam bahaya!")
             self.nyawa -= 30
             print(f"❌ Nyawa berkurang 30 poin! Nyawa sisa: {self.nyawa}")
             self.tampilkan_status()
@@ -267,6 +272,7 @@ class MysteryAdventureBot:
             return True
         else:
             print("\n✗ SALAH! Tidak ada poin bonus.")
+            print("\n⚠️  PERINGATAN: Detail kecil pun penting dalam investigasi! Lebih teliti lagi!")
             self.nyawa -= 30
             print(f"❌ Nyawa berkurang 30 poin! Nyawa sisa: {self.nyawa}")
             self.tampilkan_status()
