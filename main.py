@@ -361,9 +361,9 @@ def game_utama():
     print("=" * 60)
     print("MYSTERY ADVENTURE BOT")
     print("=" * 60)
-    print("\nSelamat datang di petualangan misteri yang seru!")
+    print("\nSelamat datang, penyidik!")
     
-    nama = input("\nSiapa nama Anda? ").strip()
+    nama = input("\nPertama-tama, siapakah namamu? ").strip()
     
     if not nama:
         nama = "Detective Anonim"
