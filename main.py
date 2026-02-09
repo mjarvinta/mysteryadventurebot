@@ -49,8 +49,7 @@ class MysteryAdventureBot:
         print(f"Poin akhir: {self.poin}")
         print(f"Petunjuk yang dikumpulkan: {len(self.petunjuk)}/{len(self.teka_teki_selesai)}")
         print("\nWalikota tidak dapat diselamatkan... 😢")
-        print("="*60 + "\n")
-        return False        
+        print("="*60 + "\n")        
     def tebak_lokasi(self):
         """Mini-game tebak lokasi walikota terakhir dilihat"""
         print("\n[TEKA-TEKI 1: TEBAK LOKASI PERTAMA]")
@@ -332,33 +331,39 @@ class MysteryAdventureBot:
         print("\n" + "-"*60)
         self.tebak_lokasi()
         if self.nyawa <= 0:
-            return self.game_over()
+            self.game_over()
+            return
         
         print("\n" + "-"*60)
         self.tebak_penjahat()
         if self.nyawa <= 0:
-            return self.game_over()
+            self.game_over()
+            return
         
         print("\n" + "-"*60)
         self.tebak_motif()
         if self.nyawa <= 0:
-            return self.game_over()
+            self.game_over()
+            return
         
         print("\n" + "-"*60)
         self.tebak_barang_bukti()
         if self.nyawa <= 0:
-            return self.game_over()
+            self.game_over()
+            return
         
         print("\n" + "-"*60)
         self.tebak_lokasi_penculikan()
         if self.nyawa <= 0:
-            return self.game_over()
+            self.game_over()
+            return
         
         print("\n" + "-"*60)
         input("\nTekan Enter untuk melanjutkan ke bonus... ")
         self.bonus_teka_teki_cepat()
         if self.nyawa <= 0:
-            return self.game_over()
+            self.game_over()
+            return
         
         # Tampilkan kesimpulan akhir
         self.tampilkan_kesimpulan()
@@ -369,13 +374,25 @@ def game_utama():
     print("=" * 60)
     print("\nSelamat datang, penyidik!")
     
-    nama = input("\nPertama-tama, siapakah namamu? ").strip()
-    
-    if not nama:
-        nama = "Detective Anonim"
-    
-    game = MysteryAdventureBot(nama)
-    game.main_game()
+    while True:
+        nama = input("\nPertama-tama, siapakah namamu? ").strip()
+        
+        if not nama:
+            nama = "Detective Anonim"
+        
+        game = MysteryAdventureBot(nama)
+        game.main_game()
+        
+        # Tanyakan apakah ingin bermain lagi
+        print("\nApakah Anda ingin bermain lagi? (ya/tidak): ", end="")
+        pilihan = input().lower().strip()
+        
+        if pilihan != "ya":
+            print("\n" + "="*60)
+            print("Terima kasih telah memainkan Mystery Adventure Bot!")
+            print("Sampai jumpa lagi, penyidik! 🕵️")
+            print("="*60 + "\n")
+            break
     
 if __name__ == "__main__":
     game_utama()
